@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --theme: #1f1f1f;
+    --theme-hover: #d8d8d8;
+    --theme-active-bg: #d9d9d9;
+    --primColor: #2a60dd;
+
+    --blue-bea-1: #20a8d8;
+    --blue-bea-2: #63c2de;
+
+    --theme-resize-bar: #efefef;
+
+    --root-bg-lv1: #eef5fa;
+    --root-bg-gray: #888888;
+
+    --root-text-size: 13px;
+    --root-text-color-black: #1d1d1d;
+    --root-text-color: #3a4e61;
+    --root-text-gray-color: #828b94;
+    --root-text-gray-blue-color: #a7b1c2;
+    --root-white-text-color: #c7c7c7;
+
+    --root-border-color: #e8e8e8;
+    --root-border-table-color: #f0f0f0;
+
+    --hover-bg: #ffffff20;
+    --hover-bg-dark: #00000008;
+    --hover-bg-dark-l-1: #dcdcdc;
+
+    --mask-bg: #ffffff50;
+    --dark-bg: #001628;
+    --dark-bg-07: #001628bc;
+    --link-color: #008cff;
+
+    --blue: #1673ff;
+    --black: #000000;
+    --green: #2cc76b;
+
+    --gray-bg: #f1f1f1;
+
+    --white: #ffffff;
+    --white-07: #ffffffac;
+    --white-05: #ffffff79;
+    --red: #ff4d4f;
+    --transparent: #ffffff00;
+
+    --red-bold: #ab0003;
+
+    --running-color: #00aa9a;
+    --offline-color: #555555;
+    --lostgps-color: #891ca2;
+    --stopped-color: #e74b3c;
+    --stoppedR-color: #0099ce;
+
+    --warning-03: #ddad2a51;
+    --warning: #f5a03e;
+
+    font-family: 'Noto Sans', sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+    margin: 0;
+}
+
+body {
+    font-family: 'Noto Sans', sans-serif;
+    /* font-family: Avenir, Helvetica, Arial, sans-serif; */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: var(--root-text-size);
+    color: var(--root-text-color);
+    background-color: var(--white);
+    min-height: 100vh;
+}
+
+/* 5. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* 6. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* 7. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+/* 8. Improve line wrapping */
+p {
+    text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+/*
+    9. Create a root stacking context
+  */
+#root,
+#__next {
+    isolation: isolate;
+}

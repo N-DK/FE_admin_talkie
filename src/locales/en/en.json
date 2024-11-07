@@ -1,0 +1,71 @@
+{
+    "loading_message": "Loading data...",
+
+    "language": "English",
+
+    "welcome_message": "Welcome to the system",
+    "not_found_message": "Sorry, the page you visited does not exist.",
+
+    "light_mode": "Light mode",
+    "dark_mode": "Dark mode",
+
+    "menu_user_manager": "User manager",
+    "menu_posts_manager": "Posts manager",
+    "menu_channel_manager": "Channel manager",
+    "menu_system_config": "System config",
+    "menu_OTP_config": "OTP email config",
+    "menu_email_config_info": "Email configuration information",
+    "menu_base_config_info": "Basic information configuration",
+
+    "form_login_username": "Username",
+    "form_login_password": "Password",
+    "form_warning_empty": "Cannot be left blank!",
+    "form_warning_invalid": "{{field}} is invalid!",
+
+    "message_login_success": "Login successfully!",
+
+    "confirm_logout_title": "Confirm logout?",
+    "confirm_logout_content": "Logout from this account",
+
+    "btn_login": "Login",
+    "btn_logout": "Logout",
+    "btn_cancel": "Cancel",
+    "btn_back_home": "Back home",
+
+    "setting_account": "Setting account",
+
+    "table_user_name": "User name",
+    "table_account": "Account",
+    "table_phone": "Phone",
+    "table_created_at": "Created at",
+    "table_avatar": "Avatar",
+    "table_action": "Action",
+    "table_status": "Status",
+    "table_number_of_posts": "Number of posts",
+    "table_number_of_channels": "Number of channels",
+    "table_number_of_comments": "Number of comments",
+    "table_number_of_likes": "Number of likes",
+    "table_number_of_shares": "Number of shares",
+    "table_number_of_views": "Number of views",
+    "table_image": "Image",
+    "table_tag": "Tag user",
+    "table_bio": "Bio",
+    "table_website": "Website",
+    "table_channel_name": "Channel name",
+    "table_channel_avatar": "Channel avatar",
+    "table_status_active": "Active",
+    "table_status_locked": "Locked",
+    "table_status_lock": "Lock",
+    "table_status_unlock": "Unlock",
+    "table_status_in_visible": "Invisible",
+    "table_status_visible": "Visible",
+    "table_none": "No {{field}}",
+    "table_search_user": "Search user...",
+    "table_content": "Content",
+    "table_add": "More",
+    "table_lock_post": "Lock post",
+    "table_report_post": "Report post",
+    "table_search_post": "Search post...",
+    "table_search_channel": "Search channel...",
+    "table_items_per_page": "page"
+}

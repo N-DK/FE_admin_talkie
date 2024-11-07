@@ -1,0 +1,35 @@
+/* Menu */
+.ant-menu-item {
+    border-radius: 4px !important;
+}
+
+.ant-menu-item-selected {
+}
+
+/* Button */
+.ant-btn-default {
+    background-color: var(--transparent);
+}
+
+/* Pagination */
+.ant-pagination-item {
+    border-radius: 2px !important;
+}
+
+/* popover */
+.ant-popover .ant-popover-inner {
+    padding: 0;
+}
+
+.ant-popover .ant-popover-title {
+    padding: 4px 8px;
+    /* background-color: var(--dark-bg);
+    color: var(--white); */
+}
+.ant-popover .ant-popover-content {
+    /* border: 0.1px solid var(--white); */
+}
+
+.ant-popover .ant-popover-title {
+    margin: 0 !important;
+}

@@ -1,0 +1,71 @@
+{
+    "loading_message": "Đang tải dữ liệu...",
+
+    "language": "Tiếng Việt",
+
+    "welcome_message": "Chào bạn đến với hệ thống",
+    "not_found_message": "Trang bạn đang tìm kiếm không tồn tại.",
+
+    "light_mode": "Chế độ sáng",
+    "dark_mode": "Chế độ tối",
+
+    "menu_user_manager": "Quản trị người dùng",
+    "menu_posts_manager": "Quản trị bài viết",
+    "menu_channel_manager": "Quản trị kênh",
+    "menu_system_config": "Cấu hình hệ thống",
+    "menu_OTP_config": "Cấu hình OTP email",
+    "menu_email_config_info": "Cấu hình thông tin gửi email",
+    "menu_base_config_info": "Cấu hình thông tin cơ bản",
+
+    "form_login_username": "Tài khoản",
+    "form_login_password": "Mật khẩu",
+    "form_warning_empty": "{{field}} không được để trống!",
+    "form_warning_invalid": "{{field}} không hợp lệ!",
+
+    "message_login_success": "Đăng nhập thành công!",
+
+    "confirm_logout_title": "Xác nhận đăng xuất?",
+    "confirm_logout_content": "Đăng xuất khỏi tài khoản này",
+
+    "btn_login": "Đăng nhập",
+    "btn_logout": "Đăng xuất",
+    "btn_cancel": "Huỷ",
+    "btn_back_home": "Trở về trang chủ",
+
+    "setting_account": "Cài đặt tài khoản",
+
+    "table_user_name": "Tên người dùng",
+    "table_account": "Tên tài khoản",
+    "table_phone": "Số điện thoại",
+    "table_created_at": "Ngày tạo",
+    "table_avatar": "Ảnh đại diện",
+    "table_action": "Thao tác",
+    "table_status": "Trạng thái",
+    "table_number_of_posts": "Số bài viết",
+    "table_number_of_channels": "Số kênh",
+    "table_number_of_comments": "Số bình luận",
+    "table_number_of_likes": "Số lượt thích",
+    "table_number_of_shares": "Số lượt chia sẻ",
+    "table_number_of_views": "Số lượt xem",
+    "table_image": "Hình ảnh",
+    "table_tag": "Tag người dùng",
+    "table_bio": "Tiểu sử",
+    "table_website": "Trang web",
+    "table_channel_name": "Tên kênh",
+    "table_channel_avatar": "Ảnh đại diện kênh",
+    "table_status_active": "Hoạt động",
+    "table_status_locked": "Đã khóa",
+    "table_status_lock": "Khóa",
+    "table_status_unlock": "Mở khóa",
+    "table_status_in_visible": "Không hiển thị",
+    "table_status_visible": "Hiển thị",
+    "table_none": "Không có {{field}}",
+    "table_search_user": "Tìm kiếm người dùng...",
+    "table_content": "Nội dung",
+    "table_add": "Thêm",
+    "table_lock_post": "Khóa bài viết",
+    "table_report_post": "Báo cáo bài viết",
+    "table_search_post": "Tìm kiếm bài viết...",
+    "table_search_channel": "Tìm kiếm kênh...",
+    "table_items_per_page": "trang"
+}
