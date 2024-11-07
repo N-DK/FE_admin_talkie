@@ -31,7 +31,7 @@ export const _app = {
 
     getInitialData: {
         theme: () => {
-            const theme = storage.getItem('theme');
+            const theme = storage.getItem('theme') || 'light';
             const dispatch = store.dispatch;
             dispatch(setTheme(theme));
 
