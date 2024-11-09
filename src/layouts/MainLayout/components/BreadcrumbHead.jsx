@@ -7,9 +7,11 @@ import { useTranslation } from 'react-i18next';
 function BreadcrumbHead() {
     const hisArr = useBreadcrumb();
     const { t } = useTranslation();
-    const items = hisArr?.map?.((menu, index) => {
-        return { title: t(menu?.title) };
-    });
+    const items = hisArr?.flatMap((menu) =>
+        menu?.title?.split('/')?.map((item) => ({
+            title: t(item),
+        })),
+    );
 
     return (
         <Breadcrumb

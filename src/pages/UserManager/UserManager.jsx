@@ -9,7 +9,10 @@ const SERVER_DOMAIN = import.meta.env.VITE_SERVER_DOMAIN;
 const fetchUserData = async (offset, limit, search = '') => {
     try {
         const response = await getAllUserService(offset, limit, search);
-        return { data: response?.data || [], total: response?.total || 30 };
+        return {
+            data: response?.data || [],
+            total: response?.total_record?.total || 30,
+        };
     } catch (error) {
         console.error(error);
         return { data: [], total: 0 };
@@ -26,21 +29,25 @@ const UserManager = () => {
             dataIndex: 'name',
             key: 'name',
             render: (text) => <a>{text}</a>,
+            width: 150,
         },
         {
             title: t('table_phone'),
             dataIndex: 'phone',
             key: 'phone',
+            width: 150,
         },
         {
             title: 'Email',
             dataIndex: 'email',
             key: 'email',
+            width: 150,
         },
         {
             title: t('table_bio'),
             dataIndex: 'bio',
             key: 'bio',
+            width: 150,
         },
         {
             title: t('table_website'),
@@ -54,6 +61,7 @@ const UserManager = () => {
                 ) : (
                     t('table_none', { field: t('table_website') })
                 ),
+            width: 150,
         },
         {
             title: t('table_avatar'),
@@ -66,6 +74,7 @@ const UserManager = () => {
                     style={{ width: 50, height: 50, borderRadius: '50%' }}
                 />
             ),
+            width: 150,
         },
         {
             title: t('table_created_at'),
@@ -75,6 +84,7 @@ const UserManager = () => {
                 new Date(parseInt(timestamp) * 1000).toLocaleDateString(
                     'vi-VN',
                 ),
+            width: 150,
         },
         {
             title: t('table_status'),
@@ -87,6 +97,7 @@ const UserManager = () => {
                         : t('table_status_active')}
                 </Tag>
             ),
+            width: 150,
         },
         {
             title: t('table_action'),
@@ -100,6 +111,7 @@ const UserManager = () => {
                     </Button>
                 </Space>
             ),
+            width: 150,
         },
     ];
 

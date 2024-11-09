@@ -8,7 +8,10 @@ const SERVER_DOMAIN = import.meta.env.VITE_SERVER_DOMAIN;
 const fetchChannelData = async (offset, limit, search = '') => {
     try {
         const response = await getAllChannelService(offset, limit, search);
-        return { data: response?.data || [], total: response?.total || 30 };
+        return {
+            data: response?.data || [],
+            total: response?.total_record?.total || 30,
+        };
     } catch (error) {
         console.error(error);
         return { data: [], total: 0 };
@@ -24,16 +27,19 @@ function ChannelManager() {
             dataIndex: 'name',
             key: 'name',
             render: (text) => <a>{text}</a>,
+            width: 150,
         },
         {
             title: 'Nickname',
             dataIndex: 'username',
             key: 'username',
+            width: 150,
         },
         {
             title: t('table_phone'),
             dataIndex: 'phone',
             key: 'phone',
+            width: 150,
         },
         {
             title: t('table_created_at'),
@@ -43,6 +49,7 @@ function ChannelManager() {
                 new Date(parseInt(timestamp) * 1000).toLocaleDateString(
                     'vi-VN',
                 ),
+            width: 150,
         },
         {
             title: t('table_avatar'),
@@ -55,11 +62,13 @@ function ChannelManager() {
                     style={{ width: 50, height: 50, borderRadius: '50%' }}
                 />
             ),
+            width: 150,
         },
         {
             title: t('table_number_of_posts'),
             dataIndex: 'number_post',
             key: 'number_post',
+            width: 150,
         },
         {
             title: t('table_status'),
@@ -72,6 +81,7 @@ function ChannelManager() {
                         : t('table_status_visible')}
                 </Tag>
             ),
+            width: 150,
         },
         {
             title: t('table_channel_avatar'),
@@ -89,6 +99,7 @@ function ChannelManager() {
                         field: t('table_avatar_post'),
                     })
                 ),
+            width: 150,
         },
         {
             title: t('table_action'),
@@ -102,6 +113,7 @@ function ChannelManager() {
                     </Button>
                 </Space>
             ),
+            width: 150,
         },
     ];
 

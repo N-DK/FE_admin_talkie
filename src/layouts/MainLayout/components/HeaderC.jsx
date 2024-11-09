@@ -33,7 +33,24 @@ const HeaderC = () => {
             content: t('confirm_logout_content'),
             okText: t('btn_logout'),
             cancelText: t('btn_cancel'),
-            onOk: _app.logout,
+            onOk: () => {
+                const loadingApiClose = api.message?.loading(
+                    t('confirm_logout_loading'),
+                    20,
+                );
+                setTimeout(() => {
+                    _app.logout()
+                        .then((fb) => {
+                            api.message?.success(t('confirm_logout_success'));
+                        })
+                        .catch((error) => {
+                            api.message?.error(t('confirm_logout_error'));
+                        })
+                        .finally(() => {
+                            loadingApiClose?.();
+                        });
+                }, 300);
+            },
             centered: true,
         });
     };

@@ -30,7 +30,7 @@ function WaveSound({ audio }) {
     };
 
     return (
-        <div className="w-full flex flex-col mr-4">
+        <div className="w-full flex flex-col mr-4 relative z-[0]">
             <div className="flex items-center mb-4 justify-between">
                 {duration && <span className=" mr-4">{duration}</span>}
                 <button onClick={onPlayPause} className="">

@@ -2,11 +2,13 @@ import NotFound from '../components/NotFound';
 import { routeConfig } from '../configs/routeConfig';
 import LoginLayout from '../layouts/LoginLayout';
 import MainLayout from '../layouts/MainLayout';
+import { BasicConfiguration } from '../pages/BasicConfiguration';
 import { ChannelManager } from '../pages/ChannelManager';
 import { Login } from '../pages/Login';
+import { OTPEmailConfiguration } from '../pages/OTPEmailConfiguration';
 import { PostsManager } from '../pages/PostsManager';
 import { RootPage } from '../pages/Root';
-import { SystemConfiguration } from '../pages/SystemConfiguration';
+import { SendEmailConfiguration } from '../pages/SendEmailConfiguration';
 import { UserManager } from '../pages/UserManager';
 
 export const routes = [
@@ -36,8 +38,18 @@ export const routes = [
         layout: MainLayout,
     },
     {
-        path: routeConfig?.systemConfiguration,
-        component: SystemConfiguration,
+        path: routeConfig?.basicConfiguration,
+        component: BasicConfiguration,
+        layout: MainLayout,
+    },
+    {
+        path: routeConfig?.sendEmailConfiguration,
+        component: SendEmailConfiguration,
+        layout: MainLayout,
+    },
+    {
+        path: routeConfig?.otpEmailConfiguration,
+        component: OTPEmailConfiguration,
         layout: MainLayout,
     },
     {

@@ -7,17 +7,14 @@ export const useBreadcrumb = () => {
 
     const findBreadcrumbPath = (items, path) => {
         for (const item of items) {
-            if (path.includes(item.key)) {
+            if (path?.includes(item?.key)) {
                 hisArr.push(item);
-                if (item.children) {
-                    findBreadcrumbPath(item.children, path);
-                }
-                break;
+            } else if (item?.children) {
+                findBreadcrumbPath(item.children, path);
             }
         }
     };
 
-    // Bắt đầu tìm kiếm breadcrumb
     findBreadcrumbPath(HEADER(), pathname);
 
     return hisArr;

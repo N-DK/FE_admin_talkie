@@ -1,7 +1,9 @@
 import { store } from '../app/store';
 import { routeConfig } from '../configs/routeConfig';
+import { setSystem } from '../features/system/systemSlice';
 import { setTheme } from '../features/theme/themeSlice';
 import { setUserAccess } from '../features/user/userSlice';
+import { getSystem } from '../services/systemService.service';
 import {
     getUserInfoService,
     logoutService,
@@ -38,6 +40,15 @@ export const _app = {
             return theme;
         },
 
+        system: async () => {
+            const dispatch = store.dispatch;
+            const data = await getSystem();
+
+            dispatch(setSystem(data));
+
+            return data;
+        },
+
         userInfo: async () => {
             return new Promise(async (resolve, reject) => {
                 try {
@@ -59,7 +70,10 @@ export const _app = {
         },
 
         all: async () => {
-            return await Promise.all([_app.getInitialData.userInfo()]);
+            return await Promise.all([
+                _app.getInitialData.userInfo(),
+                _app.getInitialData.system(),
+            ]);
         },
     },
 };

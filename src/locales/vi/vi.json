@@ -13,8 +13,11 @@
     "menu_posts_manager": "Quản trị bài viết",
     "menu_channel_manager": "Quản trị kênh",
     "menu_system_config": "Cấu hình hệ thống",
+    "menu_system_config/menu_OTP_config": "Cấu hình OTP email",
     "menu_OTP_config": "Cấu hình OTP email",
+    "menu_system_config/menu_email_config_info": "Cấu hình thông tin gửi email",
     "menu_email_config_info": "Cấu hình thông tin gửi email",
+    "menu_system_config/menu_base_config_info": "Cấu hình thông tin cơ bản",
     "menu_base_config_info": "Cấu hình thông tin cơ bản",
 
     "form_login_username": "Tài khoản",
@@ -26,10 +29,19 @@
 
     "confirm_logout_title": "Xác nhận đăng xuất?",
     "confirm_logout_content": "Đăng xuất khỏi tài khoản này",
+    "confirm_save_title": "Xác nhận lưu?",
+    "confirm_save_content": "Lưu các thay đổi",
+    "confirm_save_loading": "Đang lưu các thay đổi",
+    "confirm_save_success": "Đã lưu các thay đổi",
+    "confirm_save_error": "Lưu các thay đổi thất bại",
+    "confirm_logout_loading": "Đang đăng xuất",
+    "confirm_logout_success": "Đã đăng xuất",
+    "confirm_logout_error": "Đăng xuất thất bại",
 
     "btn_login": "Đăng nhập",
     "btn_logout": "Đăng xuất",
     "btn_cancel": "Huỷ",
+    "btn_save": "Lưu",
     "btn_back_home": "Trở về trang chủ",
 
     "setting_account": "Cài đặt tài khoản",

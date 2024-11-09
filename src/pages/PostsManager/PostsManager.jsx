@@ -14,7 +14,10 @@ const SERVER_DOMAIN = import.meta.env.VITE_SERVER_DOMAIN;
 const fetchPostData = async (offset, limit, search = '') => {
     try {
         const response = await getAllPostService(offset, limit, search);
-        return { data: response?.data || [], total: response?.total || 30 };
+        return {
+            data: response?.data || [],
+            total: response?.total_record?.total || 30,
+        };
     } catch (error) {
         console.error(error);
         return { data: [], total: 0 };

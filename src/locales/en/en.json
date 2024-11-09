@@ -13,8 +13,11 @@
     "menu_posts_manager": "Posts manager",
     "menu_channel_manager": "Channel manager",
     "menu_system_config": "System config",
+    "menu_system_config/menu_OTP_config": "OTP email config",
     "menu_OTP_config": "OTP email config",
+    "menu_system_config/menu_email_config_info": "Email configuration information",
     "menu_email_config_info": "Email configuration information",
+    "menu_system_config/menu_base_config_info": "Basic information configuration",
     "menu_base_config_info": "Basic information configuration",
 
     "form_login_username": "Username",
@@ -26,10 +29,19 @@
 
     "confirm_logout_title": "Confirm logout?",
     "confirm_logout_content": "Logout from this account",
+    "confirm_save_title": "Confirm save?",
+    "confirm_save_content": "Save the changes",
+    "confirm_save_loading": "Saving the changes",
+    "confirm_save_success": "Saved the changes",
+    "confirm_save_error": "Save the changes failed",
+    "confirm_logout_loading": "Logging out",
+    "confirm_logout_success": "Logged out",
+    "confirm_logout_error": "Logout failed",
 
     "btn_login": "Login",
     "btn_logout": "Logout",
     "btn_cancel": "Cancel",
+    "btn_save": "Save",
     "btn_back_home": "Back home",
 
     "setting_account": "Setting account",

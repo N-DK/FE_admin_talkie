@@ -26,19 +26,19 @@ const menus = [
             {
                 icon: 'FaEnvelope',
                 link: `/otp-email-configuration`,
-                name: 'menu_OTP_config',
+                name: 'menu_system_config/menu_OTP_config',
                 key: '/otp-email-configuration',
             },
             {
                 icon: 'FaPaperPlane',
                 link: `/send-mail-configuration`,
-                name: 'menu_email_config_info',
+                name: 'menu_system_config/menu_email_config_info',
                 key: '/send-mail-configuration',
             },
             {
                 icon: 'FaSlidersH',
                 link: `/basic-configuration`,
-                name: 'menu_base_config_info',
+                name: 'menu_system_config/menu_base_config_info',
                 key: '/basic-configuration',
             },
         ],
