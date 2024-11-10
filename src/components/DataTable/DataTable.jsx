@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Input, Spin } from 'antd';
+import { Table, Input, Spin, Select, Checkbox } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 const DataTable = ({
@@ -12,12 +12,17 @@ const DataTable = ({
     pageSizeOptions = [5, 10, 20, 30],
     className,
     scroll,
+    refreshIds,
+    setRefreshIds,
+    setIndexSelected,
+    handleMultipleAction,
 }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(initialPageSize);
     const [total, setTotal] = useState(totalItems);
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -30,7 +35,20 @@ const DataTable = ({
             setLoading(false);
         };
         loadData();
-    }, [currentPage, pageSize, fetchData]);
+    }, [currentPage, pageSize, fetchData, totalItems]);
+
+    useEffect(() => {
+        if (refreshIds?.length > 0) {
+            setData((prev) => {
+                return prev?.map((item) => {
+                    return refreshIds?.includes(item?.id)
+                        ? { ...item, status: !item?.status }
+                        : item;
+                });
+            });
+            setRefreshIds([]);
+        }
+    }, [refreshIds]);
 
     const handleTableChange = (pagination) => {
         setCurrentPage(pagination.current);
@@ -45,17 +63,62 @@ const DataTable = ({
         });
     };
 
+    const onSelectChange = (newSelectedRowKeys) => {
+        setSelectedRowKeys(newSelectedRowKeys);
+    };
+
+    const rowSelection = {
+        selectedRowKeys,
+        onChange: onSelectChange,
+        selections: [
+            {
+                key: 'block_multiple',
+                text: t('table_block_multiple'),
+                onSelect: (_) => {
+                    handleMultipleAction('block_multiple', selectedRowKeys);
+                },
+            },
+            {
+                key: 'unblock_multiple',
+                text: t('table_unblock_multiple'),
+                onSelect: (_) => {
+                    handleMultipleAction('unblock_multiple', selectedRowKeys);
+                },
+            },
+        ],
+    };
+
     return (
         <div>
             <div className="flex items-center justify-end mb-4">
-                <Input.Search
-                    placeholder={searchPlaceholder}
-                    style={{ width: 300 }}
-                    onSearch={() => {}}
-                />
+                {setIndexSelected && (
+                    <Select
+                        className="mr-4"
+                        defaultValue={1}
+                        style={{ width: 200 }}
+                        onChange={(value) => setIndexSelected(value)}
+                        options={[
+                            {
+                                label: t('table_post'),
+                                value: 1,
+                            },
+                            {
+                                label: t('table_post_reported'),
+                                value: 0,
+                            },
+                        ]}
+                    />
+                )}
+                <div>
+                    <Input.Search
+                        placeholder={searchPlaceholder}
+                        style={{ width: 300 }}
+                        onSearch={() => {}}
+                    />
+                </div>
             </div>
             <Table
-                rowSelection={{}}
+                rowSelection={rowSelection}
                 className={className}
                 pagination={{
                     current: currentPage,

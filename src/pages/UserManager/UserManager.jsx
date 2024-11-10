@@ -1,17 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar, Button, Space, Tag } from 'antd';
-import { getAllUserService } from '../../services/userService.service';
+import {
+    getAllUserBlockService,
+    getAllUserService,
+} from '../../services/userService.service';
 import DataTable from '../../components/DataTable/DataTable';
 import { useTranslation } from 'react-i18next';
+import { AiOutlineLock, AiOutlineUnlock } from 'react-icons/ai';
+import { _app } from '../../utils/_app';
 
 const SERVER_DOMAIN = import.meta.env.VITE_SERVER_DOMAIN;
 
 const fetchUserData = async (offset, limit, search = '') => {
     try {
-        const response = await getAllUserService(offset, limit, search);
+        const [all, blocked] = await Promise.all([
+            getAllUserService(offset, limit, search),
+            getAllUserBlockService(0, 999999999, search),
+        ]);
+
+        const blockedIds = new Set(blocked?.data?.map((user) => user.id));
+
+        const updatedData =
+            all?.data?.map((user) => {
+                if (blockedIds.has(user.id)) {
+                    return { ...user, status: true };
+                }
+                return { ...user, status: false };
+            }) || [];
+
         return {
-            data: response?.data || [],
-            total: response?.total_record?.total || 30,
+            data: updatedData,
+            total: all?.total_record?.total || 1,
         };
     } catch (error) {
         console.error(error);
@@ -21,7 +40,31 @@ const fetchUserData = async (offset, limit, search = '') => {
 
 const UserManager = () => {
     const { t } = useTranslation();
-    console.log('re-render');
+    const [ids, setIds] = useState([]);
+
+    const handleBlock = (record) => {
+        if (record.status) {
+            _app.user.unblock([record.id], () => {
+                setIds([record.id]);
+            });
+        } else {
+            _app.user.block([record.id], () => {
+                setIds([record.id]);
+            });
+        }
+    };
+
+    const handleMultipleAction = (action, ids) => {
+        if (action === 'block_multiple') {
+            _app.user.block(ids, () => {
+                setIds(ids);
+            });
+        } else if (action === 'unblock_multiple') {
+            _app.user.unblock(ids, () => {
+                setIds(ids);
+            });
+        }
+    };
 
     const columns = [
         {
@@ -91,27 +134,44 @@ const UserManager = () => {
             dataIndex: 'status',
             key: 'status',
             render: (status) => (
-                <Tag color={status === 'khóa' ? 'red' : 'green'}>
-                    {status === 'khóa'
+                <Tag color={status ? 'red' : 'green'}>
+                    {status
                         ? t('table_status_locked')
                         : t('table_status_active')}
                 </Tag>
             ),
             width: 150,
+            filters: [
+                {
+                    text: t('table_status_active'),
+                    value: false,
+                },
+                {
+                    text: t('table_status_locked'),
+                    value: true,
+                },
+            ],
+            onFilter: (value, record) => record.status === value,
         },
         {
             title: t('table_action'),
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Button type="default">
-                        {record.status === 'khóa'
+                    <Button onClick={() => handleBlock(record)} type="default">
+                        {record.status ? (
+                            <AiOutlineUnlock />
+                        ) : (
+                            <AiOutlineLock />
+                        )}
+                        {record.status
                             ? t('table_status_unlock')
                             : t('table_status_lock')}
                     </Button>
                 </Space>
             ),
             width: 150,
+            fixed: 'right',
         },
     ];
 
@@ -120,8 +180,11 @@ const UserManager = () => {
             columns={columns}
             fetchData={fetchUserData}
             initialPageSize={5}
-            totalItems={30}
+            totalItems={0}
             searchPlaceholder={t('table_search_user')}
+            refreshIds={ids}
+            setRefreshIds={setIds}
+            handleMultipleAction={handleMultipleAction}
         />
     );
 };

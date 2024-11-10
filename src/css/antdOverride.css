@@ -37,3 +37,8 @@
 .ant-popover .ant-popover-title {
     margin: 0 !important;
 }
+
+/* DataTable */
+.ant-table-selection-extra {
+    width: 14px !important;
+}

@@ -11,7 +11,7 @@ export const API_URL = {
     get_all_post: '/get-all-post',
     block_post: '/block-post',
     get_all_post_block: '/get-all-post-block',
-    unlock_post: '/unlock-post',
+    unlock_post: '/unblock-post',
 
     // SYSTEM
     update_infor: '/update-infor',
@@ -21,7 +21,7 @@ export const API_URL = {
     get_all_user: '/get-all-user',
     block_user: '/block-user',
     get_all_user_block: '/get-all-user-block',
-    unlock_user: '/unlock-user',
+    unlock_user: '/unblock-user',
     get_user_info: '/get-profile',
     logout: '/logout',
 
@@ -29,7 +29,7 @@ export const API_URL = {
     get_all_channel: '/get-all-channel',
     get_all_channel_block: '/get-all-channel-block',
     block_channel: '/block-channel',
-    unlock_channel: '/unlock-channel',
+    unlock_channel: '/unblock-channel',
 
     // REPORT
     list_report: '/list-report',

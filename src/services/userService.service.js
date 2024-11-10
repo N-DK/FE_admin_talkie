@@ -42,6 +42,22 @@ export const getAllUserService = async (offset, limit) => {
     });
 };
 
+export const getAllUserBlockService = async (offset, limit, search) => {
+    const API = API_URL.get_all_user_block;
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = await serverInstance.post(API, {
+                limit,
+                offset,
+            });
+            resolve(data);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
 export const getUserInfoService = async () => {
     const API = API_URL.get_user_info;
 
@@ -61,6 +77,36 @@ export const logoutService = async () => {
     return new Promise(async (resolve, reject) => {
         try {
             const data = await serverInstance.post(API);
+            resolve(data);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+export const blockUserService = async (user_ids) => {
+    const API = API_URL.block_user;
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = await serverInstance.post(API, {
+                user_id: user_ids,
+            });
+            resolve(data);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+export const unlockUserService = async (user_ids) => {
+    const API = API_URL.unlock_user;
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = await serverInstance.post(API, {
+                user_id: user_ids,
+            });
             resolve(data);
         } catch (error) {
             reject(error);

@@ -1,6 +1,10 @@
-import { Avatar, Image, Menu, Tag, Tooltip } from 'antd';
+import { Avatar, Button, Image, Menu, Space, Tag, Tooltip } from 'antd';
 import DataTable from '../../components/DataTable/DataTable';
-import { getAllPostService } from '../../services/postService.service';
+import {
+    getAllPostBlockService,
+    getAllPostService,
+    getAllReportPostService,
+} from '../../services/postService.service';
 import { createStyles } from 'antd-style';
 import PopoverC from './components/PopoverC';
 import { FaCaretDown } from 'react-icons/fa6';
@@ -8,15 +12,45 @@ import { MdBlock } from 'react-icons/md';
 import { CiFlag1 } from 'react-icons/ci';
 import WaveSound from './components/Wavesound';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import { _app } from '../../utils/_app';
+import { AiOutlineLock, AiOutlineUnlock } from 'react-icons/ai';
 
 const SERVER_DOMAIN = import.meta.env.VITE_SERVER_DOMAIN;
 
 const fetchPostData = async (offset, limit, search = '') => {
     try {
-        const response = await getAllPostService(offset, limit, search);
+        const [all, blocked] = await Promise.all([
+            getAllPostService(offset, limit, search),
+            getAllPostBlockService(0, 999999999, search),
+        ]);
+
+        const blockedIds = new Set(blocked?.data?.map((post) => post.id));
+
+        const updatedData =
+            all?.data?.map((post) => {
+                if (blockedIds.has(post.id)) {
+                    return { ...post, status: true };
+                }
+                return { ...post, status: false };
+            }) || [];
+
+        return {
+            data: updatedData,
+            total: all?.total_record?.total || 0,
+        };
+    } catch (error) {
+        console.error(error);
+        return { data: [], total: 0 };
+    }
+};
+
+const fetchReportPostData = async (offset, limit, search = '') => {
+    try {
+        const response = await getAllReportPostService(offset, limit, search);
         return {
             data: response?.data || [],
-            total: response?.total_record?.total || 30,
+            total: response?.total_record?.total || 0,
         };
     } catch (error) {
         console.error(error);
@@ -26,6 +60,33 @@ const fetchPostData = async (offset, limit, search = '') => {
 
 function PostsManager() {
     const { t } = useTranslation();
+    const [refreshIds, setRefreshIds] = useState([]);
+    const [indexSelected, setIndexSelected] = useState(1);
+
+    const handleLock = (record) => {
+        if (record.status) {
+            _app.post.unblock([record.id], () => {
+                setRefreshIds([record.id]);
+            });
+        } else {
+            _app.post.block([record.id], () => {
+                setRefreshIds([record.id]);
+            });
+        }
+    };
+
+    const handleMultipleAction = (action, ids) => {
+        if (action === 'block_multiple') {
+            _app.post.block(ids, () => {
+                setRefreshIds(ids);
+            });
+        } else if (action === 'unblock_multiple') {
+            _app.post.unblock(ids, () => {
+                setRefreshIds(ids);
+            });
+        }
+    };
+
     const columns = [
         {
             title: t('table_avatar'),
@@ -83,16 +144,25 @@ function PostsManager() {
         },
         {
             title: t('table_status'),
-            dataIndex: 'visible',
-            key: 'visible',
-            render: (visible) => (
-                <Tag color={visible ? 'green' : 'red'}>
-                    {visible
-                        ? t('table_status_visible')
-                        : t('table_status_in_visible')}
+            dataIndex: 'status',
+            key: 'status',
+            render: (status) => (
+                <Tag color={status ? 'red' : 'green'}>
+                    {status ? t('table_status_lock') : t('table_status_unlock')}
                 </Tag>
             ),
             width: 150,
+            filters: [
+                {
+                    text: t('table_status_lock'),
+                    value: true,
+                },
+                {
+                    text: t('table_status_unlock'),
+                    value: false,
+                },
+            ],
+            onFilter: (value, record) => record.status === value,
         },
         {
             title: t('table_number_of_shares'),
@@ -125,7 +195,7 @@ function PostsManager() {
             width: 150,
         },
         {
-            title: t('table_audio'),
+            title: 'Audio',
             dataIndex: 'audio',
             key: 'audio',
             width: 200,
@@ -178,30 +248,20 @@ function PostsManager() {
             title: t('table_action'),
             key: 'operation',
             fixed: 'right',
-            width: 100,
-            render: () => (
-                <PopoverC
-                    title=""
-                    content={
-                        <>
-                            <Menu.Item key="1">
-                                <MdBlock className="mr-2" />
-                                {t('table_lock_post')}
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <CiFlag1 className="mr-2" />
-                                {t('table_report_post')}
-                            </Menu.Item>
-                        </>
-                    }
-                    trigger="click"
-                    placement="bottom"
-                >
-                    <p className="flex items-center gap-1 text-[#69b1ff] cursor-pointer">
-                        {t('table_add')}
-                        <FaCaretDown />
-                    </p>
-                </PopoverC>
+            width: 150,
+            render: (_, record) => (
+                <Space size="middle">
+                    <Button onClick={() => handleLock(record)} type="default">
+                        {record.status ? (
+                            <AiOutlineUnlock />
+                        ) : (
+                            <AiOutlineLock />
+                        )}
+                        {record.status
+                            ? t('table_status_unlock')
+                            : t('table_status_lock')}
+                    </Button>
+                </Space>
             ),
         },
     ];
@@ -209,10 +269,16 @@ function PostsManager() {
         <DataTable
             scroll={{ x: 'max-content' }}
             columns={columns}
-            fetchData={fetchPostData}
+            fetchData={
+                indexSelected === 1 ? fetchPostData : fetchReportPostData
+            }
             initialPageSize={5}
-            totalItems={30}
+            totalItems={0}
             searchPlaceholder={t('table_search_post')}
+            refreshIds={refreshIds}
+            setRefreshIds={setRefreshIds}
+            setIndexSelected={setIndexSelected}
+            handleMultipleAction={handleMultipleAction}
         />
     );
 }

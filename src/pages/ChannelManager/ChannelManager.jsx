@@ -1,16 +1,36 @@
 import { Avatar, Button, Image, Space, Tag } from 'antd';
 import DataTable from '../../components/DataTable/DataTable';
-import { getAllChannelService } from '../../services/channelService.service';
+import {
+    getAllChannelBlockService,
+    getAllChannelService,
+} from '../../services/channelService.service';
 import { useTranslation } from 'react-i18next';
+import { AiOutlineLock, AiOutlineUnlock } from 'react-icons/ai';
+import { useState } from 'react';
+import { _app } from '../../utils/_app';
 
 const SERVER_DOMAIN = import.meta.env.VITE_SERVER_DOMAIN;
 
 const fetchChannelData = async (offset, limit, search = '') => {
     try {
-        const response = await getAllChannelService(offset, limit, search);
+        const [all, blocked] = await Promise.all([
+            getAllChannelService(offset, limit, search),
+            getAllChannelBlockService(0, 999999999, search),
+        ]);
+
+        const blockedIds = new Set(blocked?.data?.map((channel) => channel.id));
+
+        const updatedData =
+            all?.data?.map((channel) => {
+                if (blockedIds.has(channel.id)) {
+                    return { ...channel, status: true };
+                }
+                return { ...channel, status: false };
+            }) || [];
+
         return {
-            data: response?.data || [],
-            total: response?.total_record?.total || 30,
+            data: updatedData,
+            total: all?.total_record?.total || 1,
         };
     } catch (error) {
         console.error(error);
@@ -20,6 +40,31 @@ const fetchChannelData = async (offset, limit, search = '') => {
 
 function ChannelManager() {
     const { t } = useTranslation();
+    const [refreshIds, setRefreshIds] = useState([]);
+
+    const handleLockChannel = async (record) => {
+        if (record?.status) {
+            _app.channel.unblock([record?.id], () => {
+                setRefreshIds([record?.id]);
+            });
+        } else {
+            _app.channel.block([record?.id], () => {
+                setRefreshIds([record?.id]);
+            });
+        }
+    };
+
+    const handleMultipleAction = (action, ids) => {
+        if (action === 'block_multiple') {
+            _app.channel.block(ids, () => {
+                setRefreshIds(ids);
+            });
+        } else if (action === 'unblock_multiple') {
+            _app.channel.unblock(ids, () => {
+                setRefreshIds(ids);
+            });
+        }
+    };
 
     const columns = [
         {
@@ -72,16 +117,25 @@ function ChannelManager() {
         },
         {
             title: t('table_status'),
-            dataIndex: 'visible',
-            key: 'visible',
-            render: (visible) => (
-                <Tag color={visible === 0 ? 'red' : 'green'}>
-                    {visible === 0
-                        ? t('table_status_in_visible')
-                        : t('table_status_visible')}
+            dataIndex: 'status',
+            key: 'status',
+            render: (status) => (
+                <Tag color={status ? 'red' : 'green'}>
+                    {status ? t('table_status_lock') : t('table_status_unlock')}
                 </Tag>
             ),
             width: 150,
+            filters: [
+                {
+                    text: t('table_status_lock'),
+                    value: true,
+                },
+                {
+                    text: t('table_status_unlock'),
+                    value: false,
+                },
+            ],
+            onFilter: (value, record) => record.status === value,
         },
         {
             title: t('table_channel_avatar'),
@@ -106,14 +160,23 @@ function ChannelManager() {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Button type="default">
-                        {record.status === 'khóa'
+                    <Button
+                        onClick={() => handleLockChannel(record)}
+                        type="default"
+                    >
+                        {record.status ? (
+                            <AiOutlineUnlock />
+                        ) : (
+                            <AiOutlineLock />
+                        )}
+                        {record.status
                             ? t('table_status_unlock')
                             : t('table_status_lock')}
                     </Button>
                 </Space>
             ),
             width: 150,
+            fixed: 'right',
         },
     ];
 
@@ -122,8 +185,11 @@ function ChannelManager() {
             columns={columns}
             fetchData={fetchChannelData}
             initialPageSize={5}
-            totalItems={30}
+            totalItems={0}
             searchPlaceholder={t('table_search_channel')}
+            refreshIds={refreshIds}
+            setRefreshIds={setRefreshIds}
+            handleMultipleAction={handleMultipleAction}
         />
     );
 }
