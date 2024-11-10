@@ -323,3 +323,72 @@
 .fr-second-toolbar {
     display: none;
 }
+
+.rti--container {
+    border: none !important;
+    outline: none !important;
+    background-color: transparent !important;
+    border-bottom: 1px solid #edeff1 !important;
+    border-radius: 0 !important;
+}
+
+.rti--container:focus-within {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid #edeff1 !important;
+    border-radius: 0 !important;
+}
+
+.rti--tag {
+    border-radius: 9999999px !important;
+}
+
+.editor-send-email .fr-element.fr-view {
+    height: 530px !important;
+}
+
+.editor-send-email .fr-sticky-off {
+    position: absolute !important;
+    bottom: 0 !important;
+}
+
+.editor-send-email .fr-box.fr-basic.fr-top .fr-wrapper {
+    border: none !important;
+}
+
+.editor-send-email .fr-box.fr-basic .fr-element {
+    padding: 10px !important;
+}
+
+.editor-send-email span.fr-placeholder {
+    padding-left: 10px !important;
+}
+
+.editor-send-email .fr-toolbar.fr-top {
+    bottom: -50px !important;
+    top: auto !important;
+    border: none !important;
+    box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.1) !important;
+    border-radius: 0px !important;
+    background-color: transparent !important;
+}
+
+.editor-send-email .fr-wrapper.show-placeholder {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.editor-send-email .fr-element.fr-view {
+    padding: 10px !important;
+    background-color: transparent !important;
+}
+
+.editor-send-email .fr-wrapper {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.editor-send-email .fr-toolbar .fr-newline {
+    display: none !important;
+}

@@ -26,3 +26,16 @@ export const updateSystem = async (_data) => {
         }
     });
 };
+
+export const adminSendEmail = async (_data) => {
+    const API = API_URL?.admin_send_email;
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const data = await serverInstance.post(API, _data);
+            resolve(data?.data);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};

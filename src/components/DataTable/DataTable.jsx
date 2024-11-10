@@ -55,6 +55,7 @@ const DataTable = ({
                 />
             </div>
             <Table
+                rowSelection={{}}
                 className={className}
                 pagination={{
                     current: currentPage,

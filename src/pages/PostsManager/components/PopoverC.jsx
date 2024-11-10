@@ -19,6 +19,7 @@ function PopoverC({ children, title, content, trigger, placement }) {
 
     return (
         <Popover
+            className="border-none"
             title={title}
             content={<Menu onClick={handleMenuClick}>{content}</Menu>}
             trigger={trigger}

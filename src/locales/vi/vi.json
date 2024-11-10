@@ -37,6 +37,9 @@
     "confirm_logout_loading": "Đang đăng xuất",
     "confirm_logout_success": "Đã đăng xuất",
     "confirm_logout_error": "Đăng xuất thất bại",
+    "confirm_send_email_loading": "Đang gửi email",
+    "confirm_send_email_success": "Đã gửi email",
+    "confirm_send_email_error": "Gửi email thất bại",
 
     "btn_login": "Đăng nhập",
     "btn_logout": "Đăng xuất",

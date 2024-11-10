@@ -9,8 +9,6 @@ const systemSlice = createSlice({
     initialState: initState,
     reducers: {
         setSystem: (state, action) => {
-            console.log(action.payload);
-
             state.system = { ...state.system, ...action.payload };
         },
     },
