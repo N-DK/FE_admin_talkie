@@ -41,15 +41,18 @@ const fetchChannelData = async (offset, limit, search = '') => {
 function ChannelManager() {
     const { t } = useTranslation();
     const [refreshIds, setRefreshIds] = useState([]);
+    const [action, setAction] = useState(null);
 
     const handleLockChannel = async (record) => {
         if (record?.status) {
             _app.channel.unblock([record?.id], () => {
                 setRefreshIds([record?.id]);
+                setAction(true);
             });
         } else {
             _app.channel.block([record?.id], () => {
                 setRefreshIds([record?.id]);
+                setAction(false);
             });
         }
     };
@@ -58,10 +61,12 @@ function ChannelManager() {
         if (action === 'block_multiple') {
             _app.channel.block(ids, () => {
                 setRefreshIds(ids);
+                setAction(false);
             });
         } else if (action === 'unblock_multiple') {
             _app.channel.unblock(ids, () => {
                 setRefreshIds(ids);
+                setAction(true);
             });
         }
     };
@@ -190,6 +195,8 @@ function ChannelManager() {
             refreshIds={refreshIds}
             setRefreshIds={setRefreshIds}
             handleMultipleAction={handleMultipleAction}
+            action={action}
+            setAction={setAction}
         />
     );
 }

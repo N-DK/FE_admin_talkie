@@ -41,15 +41,18 @@ const fetchUserData = async (offset, limit, search = '') => {
 const UserManager = () => {
     const { t } = useTranslation();
     const [ids, setIds] = useState([]);
+    const [action, setAction] = useState(null);
 
     const handleBlock = (record) => {
         if (record.status) {
             _app.user.unblock([record.id], () => {
                 setIds([record.id]);
+                setAction(true);
             });
         } else {
             _app.user.block([record.id], () => {
                 setIds([record.id]);
+                setAction(false);
             });
         }
     };
@@ -58,10 +61,12 @@ const UserManager = () => {
         if (action === 'block_multiple') {
             _app.user.block(ids, () => {
                 setIds(ids);
+                setAction(false);
             });
         } else if (action === 'unblock_multiple') {
             _app.user.unblock(ids, () => {
                 setIds(ids);
+                setAction(true);
             });
         }
     };
@@ -185,6 +190,8 @@ const UserManager = () => {
             refreshIds={ids}
             setRefreshIds={setIds}
             handleMultipleAction={handleMultipleAction}
+            action={action}
+            setAction={setAction}
         />
     );
 };

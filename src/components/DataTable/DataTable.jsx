@@ -16,6 +16,8 @@ const DataTable = ({
     setRefreshIds,
     setIndexSelected,
     handleMultipleAction,
+    action,
+    setAction,
 }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -41,14 +43,16 @@ const DataTable = ({
         if (refreshIds?.length > 0) {
             setData((prev) => {
                 return prev?.map((item) => {
-                    return refreshIds?.includes(item?.id)
+                    return refreshIds?.includes(item?.id) &&
+                        action === item?.status
                         ? { ...item, status: !item?.status }
                         : item;
                 });
             });
             setRefreshIds([]);
+            setAction(null);
         }
-    }, [refreshIds]);
+    }, [refreshIds, action]);
 
     const handleTableChange = (pagination) => {
         setCurrentPage(pagination.current);

@@ -62,15 +62,18 @@ function PostsManager() {
     const { t } = useTranslation();
     const [refreshIds, setRefreshIds] = useState([]);
     const [indexSelected, setIndexSelected] = useState(1);
+    const [action, setAction] = useState(null);
 
     const handleLock = (record) => {
         if (record.status) {
             _app.post.unblock([record.id], () => {
                 setRefreshIds([record.id]);
+                setAction(true);
             });
         } else {
             _app.post.block([record.id], () => {
                 setRefreshIds([record.id]);
+                setAction(false);
             });
         }
     };
@@ -79,10 +82,12 @@ function PostsManager() {
         if (action === 'block_multiple') {
             _app.post.block(ids, () => {
                 setRefreshIds(ids);
+                setAction(false);
             });
         } else if (action === 'unblock_multiple') {
             _app.post.unblock(ids, () => {
                 setRefreshIds(ids);
+                setAction(true);
             });
         }
     };
@@ -279,6 +284,8 @@ function PostsManager() {
             setRefreshIds={setRefreshIds}
             setIndexSelected={setIndexSelected}
             handleMultipleAction={handleMultipleAction}
+            action={action}
+            setAction={setAction}
         />
     );
 }
