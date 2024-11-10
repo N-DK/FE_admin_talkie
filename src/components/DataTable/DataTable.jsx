@@ -75,14 +75,21 @@ const DataTable = ({
                 key: 'block_multiple',
                 text: t('table_block_multiple'),
                 onSelect: (_) => {
-                    handleMultipleAction('block_multiple', selectedRowKeys);
+                    if (selectedRowKeys?.length > 0) {
+                        handleMultipleAction('block_multiple', selectedRowKeys);
+                    }
                 },
             },
             {
                 key: 'unblock_multiple',
                 text: t('table_unblock_multiple'),
                 onSelect: (_) => {
-                    handleMultipleAction('unblock_multiple', selectedRowKeys);
+                    if (selectedRowKeys?.length > 0) {
+                        handleMultipleAction(
+                            'unblock_multiple',
+                            selectedRowKeys,
+                        );
+                    }
                 },
             },
         ],
