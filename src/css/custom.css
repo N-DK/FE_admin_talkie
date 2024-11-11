@@ -392,3 +392,8 @@
 .editor-send-email .fr-toolbar .fr-newline {
     display: none !important;
 }
+
+a[href="https://www.froala.com/wysiwyg-editor?k=u"]
+{
+    display: none !important;
+}
