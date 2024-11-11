@@ -118,5 +118,7 @@
     "table_post": "Post",
     "table_post_reported": "Reported post",
     "table_block_multiple": "Block multiple",
-    "table_unblock_multiple": "Unblock multiple"
+    "table_unblock_multiple": "Unblock multiple",
+
+    "select_all": "All"
 }

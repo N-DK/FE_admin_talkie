@@ -1,4 +1,4 @@
-import { Avatar, Button, Select } from 'antd';
+import { Avatar, Button, TreeSelect } from 'antd';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { TagsInput } from 'react-tag-input-component';
@@ -20,24 +20,29 @@ function SendEmailConfiguration() {
     const fetchData = async () => {
         const res = await getAllUserService(0, 999999);
 
-        setOptions(
-            res.data
-                ?.filter((item) => item.email)
-                ?.map((item) => ({
-                    value: item.email,
-                    label: (
-                        <div className="flex items-center">
-                            <Avatar
-                                className="mr-2 w-5 h-5"
-                                src={`${SERVER_DOMAIN}/${item.avatar}`}
-                            />
-                            <span>
-                                {item.name} ({item.email})
-                            </span>
-                        </div>
-                    ),
-                })),
-        );
+        setOptions([
+            {
+                title: t('select_all'),
+                value: 'all',
+                key: 'all',
+                children: res.data
+                    ?.filter((item) => item.email)
+                    ?.map((item) => ({
+                        value: item.email,
+                        title: (
+                            <div className="flex items-center">
+                                <Avatar
+                                    className="mr-2 w-5 h-5"
+                                    src={`${SERVER_DOMAIN}/${item.avatar}`}
+                                />
+                                <span>
+                                    {item.name} ({item.email})
+                                </span>
+                            </div>
+                        ),
+                    })),
+            },
+        ]);
     };
 
     const handleModelChange = (model) => {
@@ -75,13 +80,14 @@ function SendEmailConfiguration() {
     return (
         <div className="h-[100%] overflow-auto">
             <div className="h-full relative">
-                <Select
-                    mode="tags"
+                <TreeSelect
+                    treeCheckable
+                    showSearch
                     style={{ width: '100%' }}
                     onChange={handleChange}
-                    tokenSeparators={[',']}
-                    options={options}
+                    treeData={options}
                     placeholder="Người nhận"
+                    maxTagCount="responsive"
                 />
                 <div className="mt-3 h-[100px]">
                     <FroalaEditor
@@ -117,16 +123,16 @@ function SendEmailConfiguration() {
                             editorClass: `editor-send-email `,
                         }}
                     />
-                </div>
-                <div className="absolute bottom-0 left-0 pl-2">
-                    <Button
-                        size="large"
-                        type="primary"
-                        className="rounded-full"
-                        onClick={handleSendEmail}
-                    >
-                        Gửi email
-                    </Button>
+                    <div className="mt-20">
+                        <Button
+                            size="large"
+                            type="primary"
+                            className="rounded-full"
+                            onClick={handleSendEmail}
+                        >
+                            Gửi email
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>

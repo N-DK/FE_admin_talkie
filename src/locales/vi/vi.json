@@ -119,5 +119,7 @@
     "table_post": "Bài viết",
     "table_post_reported": "Bài viết báo cáo",
     "table_block_multiple": "Khóa nhiều",
-    "table_unblock_multiple": "Mở khóa nhiều"
+    "table_unblock_multiple": "Mở khóa nhiều",
+
+    "select_all": "Tất cả"
 }
