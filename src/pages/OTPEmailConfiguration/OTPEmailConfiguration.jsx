@@ -71,7 +71,7 @@ function OTPEmailConfiguration() {
     }, [isFlagSave, content]);
 
     return (
-        <div className="h-[75vh] overflow-auto">
+        <div className="h-[100%] overflow-auto">
             <FroalaEditor
                 tag="textarea"
                 model={content}

@@ -42,3 +42,7 @@
 .ant-table-selection-extra {
     width: 14px !important;
 }
+
+.ant-table-cell {
+    width: 150px;
+}

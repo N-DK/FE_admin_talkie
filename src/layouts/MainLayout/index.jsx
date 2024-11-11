@@ -27,7 +27,7 @@ function MainLayout({ children }) {
                         <div
                             style={{
                                 padding: 24,
-                                // height: '90%',
+                                height: '90%',
                                 background: colorBgContainer,
                                 borderRadius: borderRadiusLG,
                                 overflow: 'auto',

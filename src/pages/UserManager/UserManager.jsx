@@ -162,18 +162,12 @@ const UserManager = () => {
             title: t('table_action'),
             key: 'action',
             render: (_, record) => (
-                <Space size="middle">
-                    <Button onClick={() => handleBlock(record)} type="default">
-                        {record.status ? (
-                            <AiOutlineUnlock />
-                        ) : (
-                            <AiOutlineLock />
-                        )}
-                        {record.status
-                            ? t('table_status_unlock')
-                            : t('table_status_lock')}
-                    </Button>
-                </Space>
+                <Button onClick={() => handleBlock(record)} type="default">
+                    {record.status ? <AiOutlineUnlock /> : <AiOutlineLock />}
+                    {record.status
+                        ? t('table_status_unlock')
+                        : t('table_status_lock')}
+                </Button>
             ),
             width: 150,
             fixed: 'right',

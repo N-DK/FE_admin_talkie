@@ -73,7 +73,7 @@ function SendEmailConfiguration() {
     }, []);
 
     return (
-        <div className="h-[75vh] overflow-auto">
+        <div className="h-[100%] overflow-auto">
             <div className="h-full relative">
                 <Select
                     mode="tags"

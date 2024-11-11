@@ -109,6 +109,7 @@ function PostsManager() {
                     'No Avatar'
                 ),
             width: 150,
+            minWidth: 150,
         },
         {
             title: t('table_user_name'),
@@ -117,6 +118,7 @@ function PostsManager() {
             fixed: 'left',
             render: (name) => <p className="font-semibold">{name}</p>,
             width: 150,
+            minWidth: 150,
         },
 
         {
@@ -255,18 +257,12 @@ function PostsManager() {
             fixed: 'right',
             width: 150,
             render: (_, record) => (
-                <Space size="middle">
-                    <Button onClick={() => handleLock(record)} type="default">
-                        {record.status ? (
-                            <AiOutlineUnlock />
-                        ) : (
-                            <AiOutlineLock />
-                        )}
-                        {record.status
-                            ? t('table_status_unlock')
-                            : t('table_status_lock')}
-                    </Button>
-                </Space>
+                <Button onClick={() => handleLock(record)} type="default">
+                    {record.status ? <AiOutlineUnlock /> : <AiOutlineLock />}
+                    {record.status
+                        ? t('table_status_unlock')
+                        : t('table_status_lock')}
+                </Button>
             ),
         },
     ];
